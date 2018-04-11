@@ -1,8 +1,8 @@
+//Thrid-party Npm modules 
 const mongoose = require("mongoose");
-
 const Order = require("../models/order");
 const Product = require("../models/product");
-
+//Controller Logic
 exports.orders_get_all = (req, res, next) => {
   Order.find()
     .select("product quantity _id")

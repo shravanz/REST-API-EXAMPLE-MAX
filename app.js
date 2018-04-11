@@ -1,20 +1,21 @@
+//Thrid-party Npm modules 
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+//Route Configurations 
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
 const userRoutes = require('./api/routes/user');
-
+//Mongoose Connections
 mongoose.connect('mongodb://localhost/MaxTestDB', () => console.log('Db is ready'))
-
+//Body-Parser Middlewares
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+//CORS Middlewar
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -32,9 +33,9 @@ app.use((req, res, next) => {
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 app.use("/user", userRoutes);
-
+//consoling the serverInfo 
 console.log("the Server is started at Port 3000")
-
+//Errors handlers
 app.use((req, res, next) => {
   const error = new Error("Not found");
   error.status = 404;
